@@ -6,6 +6,7 @@ const PageSchema = new mongoose.Schema({
     author: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
     password: String,
     content: String,
+    text: String,
     openings: Number,
     lifetime: Number
     },

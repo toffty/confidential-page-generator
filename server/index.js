@@ -15,28 +15,26 @@ dotenv.config();
 const url = 'mongodb://localhost:27017/cpg';
 
 
-
 const User = new UserController();
 const Page = new PageController();
 const Auth = new AuthController();
 
-mongoose.connect(url , { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false})
+mongoose.connect(url, {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false})
 
 app.use(bodyParser.json())
 
 
-
-app.get("/user/:id",[authJwt] ,User.show)
-app.delete("/user/:id",[authJwt], User.delete)
+app.get("/user/:id", [authJwt], User.show)
+app.delete("/user/:id", [authJwt], User.delete)
 app.post("/user/registration", Auth.SignUp)
 app.post("/user/login", Auth.SignIn)
 
 
-app.post("/page/create", Page.create)
+app.post("/page/create", [authJwt], Page.create)
 app.get("/page/:id", Page.show)
+app.delete("/page/:id", Page.delete)
 
 
-
-app.listen(process.env.PORT,()=>{
+app.listen(process.env.PORT, () => {
     console.log('listening port 7777')
 })

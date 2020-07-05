@@ -1,10 +1,10 @@
-
 import UserModel from "../schema/User.js";
 
 import jwt from "jsonwebtoken";
 
 import bcrypt from "bcrypt";
-class AuthController{
+
+class AuthController {
     SignUp = (req, res) => {
         const user = new UserModel({
             username: req.body.username,
@@ -13,7 +13,7 @@ class AuthController{
 
         user.save((err, user) => {
             if (err) {
-                res.status(500).send({ message: err });
+                res.status(500).send({message: err});
                 return;
             }
             res.json(user)
@@ -28,12 +28,12 @@ class AuthController{
 
             .exec((err, user) => {
                 if (err) {
-                    res.status(500).send({ message: err });
+                    res.status(500).send({message: err});
                     return;
                 }
 
                 if (!user) {
-                    return res.status(404).send({ message: "User Not found." });
+                    return res.status(404).send({message: "User Not found."});
                 }
 
                 const passwordIsValid = bcrypt.compareSync(
@@ -48,7 +48,7 @@ class AuthController{
                     });
                 }
 
-                const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
+                const token = jwt.sign({id: user.id}, process.env.JWT_SECRET, {
                     expiresIn: 86400 // 24 hours
                 });
 
