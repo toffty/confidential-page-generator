@@ -1,0 +1,40 @@
+.login{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-areas:
+          "form form form"
+          "info info info"
+;
+
+}
+.login__form{
+  padding: 40px;
+  grid-area: form;
+
+}
+.login__form__password{
+
+  padding-left: 20px;
+  grid-area: password;
+}
+.login__form__button{
+  grid-area: button;
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 30px;
+;
+}
+.login__info{
+
+  grid-area: info;
+
+}
+.login__input{
+  margin-bottom: 15px;
+}

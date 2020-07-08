@@ -6,9 +6,10 @@ import bcrypt from "bcrypt";
 
 class AuthController {
     SignUp = (req, res) => {
+        const salt = bcrypt.genSaltSync(10);
         const user = new UserModel({
             username: req.body.username,
-            password: bcrypt.hashSync(req.body.password, 8)
+            password: bcrypt.hashSync(req.body.password, salt)
         });
 
         user.save((err, user) => {
@@ -22,6 +23,7 @@ class AuthController {
     };
 
     SignIn = (req, res) => {
+
         UserModel.findOne({
             username: req.body.username
         })
@@ -52,7 +54,7 @@ class AuthController {
                     expiresIn: 86400 // 24 hours
                 });
 
-                const authorities = [];
+
 
 
                 res.status(200).json({

@@ -11,7 +11,7 @@ const app = express();
 
 dotenv.config();
 
-
+app.set("view engine", "ejs");
 const url = 'mongodb://localhost:27017/cpg';
 
 
@@ -31,8 +31,10 @@ app.post("/user/login", Auth.SignIn)
 
 
 app.post("/page/create", [authJwt], Page.create)
-app.get("/page/:id", Page.show)
-app.delete("/page/:id", Page.delete)
+app.use("/page/:id", Page.show)
+
+
+
 
 
 app.listen(process.env.PORT, () => {

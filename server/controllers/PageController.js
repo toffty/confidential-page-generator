@@ -28,10 +28,14 @@ class PageController {
                     message: "Not found"
                 })
             } else {
-                res.json(page);
+                console.log(page)
+
                 if (page) {
+                    res.render("open",{
+                        url: page.content
+                    });
                     if (page.openings <= 0) {
-                        console.log("kekw")
+
                         PageModel.findOneAndRemove({_id: id}).then(page => {
                             res.json({
                                 message: `Page deleted`
@@ -40,7 +44,7 @@ class PageController {
 
                         }).catch(err => {
                             return res.json({
-                                message: 'User not found'
+                                message: 'Page not found'
                             });
                         });
 
@@ -73,12 +77,13 @@ class PageController {
     }
 
     create(req, res) {
+        const salt = bcrypt.genSaltSync(10);
 
         const current_date = new Date()
         textToImage.generate(req.body.text + '\n ' + current_date.toDateString() + '\n ' + 'Количество открытий: ' + req.body.openings).then((dataURL) => {
             const postData = {
                 username: req.body.username,
-                password: req.body.password,
+                password: bcrypt.hashSync(req.body.password, salt),
                 lifetime: req.body.lifetime,
                 text: req.body.text,
                 content: dataURL,
@@ -92,6 +97,21 @@ class PageController {
             })
         });
 
+    };
+
+    Open = (req, res) => {
+        const id = req.params.id
+        PageModel.findById(id, (err, page) => {
+            if (err) {
+                return res.status(404).json({
+                    message: "Not found"
+                })
+            } else {
+                res.render("open",{
+                    url: page.content
+                });
+            }
+        });
     };
 
 }
