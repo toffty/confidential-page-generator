@@ -3,7 +3,6 @@ import GeneratePage from "./GeneratePage";
 import axios from "axios";
 import {useFormik} from "formik";
 import {useCookies} from 'react-cookie'
-import { Form, Input, Button} from 'antd'
 import '../styles/Login.scss'
 const LoginForm = () => {
 
@@ -51,10 +50,10 @@ const LoginForm = () => {
 
 
         <div className="login">
-            <Form onSubmit={formik.handleSubmit} classname="login__form">
+            <form onSubmit={formik.handleSubmit} className="login__form">
                 <div className="login__input">
                     Username:
-                    <Input
+                    <input
                         id="username"
                         name="username"
                         type="username"
@@ -66,7 +65,7 @@ const LoginForm = () => {
 
                 <div>
                     Password:
-                    <Input
+                    <input
                         id="password"
                         name="password"
                         type="password"
@@ -77,8 +76,8 @@ const LoginForm = () => {
                 </div>
 
 
-                <Button type="submit" className="login__form__button">Submit</Button>
-            </Form>
+                <button type="submit" className="login__form__button">Submit</button>
+            </form>
 
             <div className="login__info">
                 {userData.isSignUp &&
